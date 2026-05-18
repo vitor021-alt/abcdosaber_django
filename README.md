@@ -17,3 +17,12 @@ Para instalar o projeto, utilize o MS Visual Studio Code e siga os seguintes pas
 
 > [!NOTE]
 > Os pacotes envolvidos no projeto podem ser encontrados no arquivo "requirements.txt".
+
+### Criando um ambiente (environment) para o projeto
+
+### Pela linha de comando do terminal, digite:
+
+```
+python -m venv .venv
+
+```
