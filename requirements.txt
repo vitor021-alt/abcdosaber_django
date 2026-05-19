@@ -1,0 +1,10 @@
+asgiref==3.11.1
+Django==4.2.18
+sqlparse==0.5.5
+tzdata==2026.2
+
+
+"pip install Django==4.2.18"
+#criar o "venv" tambem
+
+#pip freeze > requirements.txt
