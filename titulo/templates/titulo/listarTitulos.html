@@ -7,9 +7,9 @@
 {% block menu %}     
             <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
                 <div class="navbar-nav">
-                    <a href="../escola.html" class="nav-link">Início</a>
+                    <a href="/" class="nav-link">Início</a>
                     <a href="cadastroTitulos.html" class="nav-link">Cadastrar</a>
-                    <a href="listarTitulos.html" class="nav-link">Listar</a>
+                    <a href="{% url 'titulo:listar' %}" class="nav-link">Listar</a>
                 </div>
             </div>
 {% endblock %}            
