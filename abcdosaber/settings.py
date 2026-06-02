@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'tipodeatividade.apps.TipodeatividadeConfig',
     'turma.apps.TurmaConfig',
     'utilitarios.apps.UtilitariosConfig',
+    'contato.apps.ContatoConfig',
 
 
 ]
