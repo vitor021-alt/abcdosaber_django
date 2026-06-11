@@ -11,3 +11,8 @@ tzdata==2026.2
 
 #pip freeze > requirements.txt
 #add README.md
+
+
+
+# 10/06
+# criar a mão no models da turma igual ao do instrutor

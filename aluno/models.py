@@ -13,15 +13,16 @@ class Aluno(models.Model):
         help_text="Nome do aluno",
     )
 
-    datainicial= models.CharField(
+    datainicial= models.DateField(
         max_length=70,
         null=False,
         help_text="Informe a data inicial do aluno",
     )
 
-    datafinal= models.CharField(
+    datafinal= models.DateField(
         max_length=70,
         null=True,
+        blank=True,
         help_text="Informe a data final do aluno",
     )
 
