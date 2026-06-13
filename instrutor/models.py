@@ -10,7 +10,7 @@ class Instrutor(models.Model):
     )
 
     rg= models.CharField(
-        max_length=15,
+        max_length=11,
         null=False,
         help_text="informe o RG do instrutor",
     )
@@ -45,7 +45,7 @@ class Instrutor(models.Model):
         Titulo,
         null=True,
         blank=True,
-        related_name='titulos',
+        related_name='instrutores',
         on_delete=models.SET_NULL,
         db_column='codigo_titulo',
         help_text="Informe o código do título do instrutor",

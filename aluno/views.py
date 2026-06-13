@@ -1,10 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+from aluno.models import Aluno 
 
 # Create your views here.
 def listar(request):
-    return render(request, 'aluno/listarAlunos.html')
+    lista_alunos = Aluno.objects.all()
+    contexto = {
+        'alunos': lista_alunos
+    }
+    return render(request, 'aluno/listarAlunos.html', context=contexto)
 
 def cadastro(request):
     return render(request, 'aluno/cadastroAluno.html')

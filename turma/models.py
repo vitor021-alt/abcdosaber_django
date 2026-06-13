@@ -1,5 +1,8 @@
 from django.db import models
 
+from titulo.models import Titulo
+from instrutor.models import Instrutor
+
 
 # Create your models here.
 class Turma(models.Model):
@@ -45,11 +48,26 @@ class Turma(models.Model):
         help_text="Informe o registro do monitor",
     )
 
-    idInstrutor= models.CharField(
-        max_length=70,
+    idInstrutor= models.ForeignKey(
+        Instrutor,
         null=True,
+        blank=True,
+        related_name='turmas',
+        on_delete=models.SET_NULL,
+        db_column='id_instrutor',
         help_text="Informe o ID do instrutor",
     )
+
+    codigo_titulo= models.ForeignKey(
+        Titulo,
+        null=True,
+        blank=True,
+        related_name='turmas',
+        on_delete=models.SET_NULL,
+        db_column='codigo_titulo',
+        help_text="Informe o código do título do instrutor",
+    )
+
 
 
 
