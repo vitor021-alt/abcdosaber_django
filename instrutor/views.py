@@ -1,6 +1,6 @@
 
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from instrutor.models import Instrutor
 
 # Create your views here.
@@ -13,3 +13,12 @@ def listar(request):
 
 def cadastro(request):
     return render(request, 'instrutor/cadastroInstrutor.html')
+
+def excluir(request, codigoInstrutor):
+    try:
+        instrutor = Instrutor.objects.get(pk=codigoInstrutor)
+        instrutor.delete()
+    except Instrutor.DoesNotExist:
+        pass
+    
+    return redirect('instrutor:listar')

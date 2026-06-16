@@ -28,7 +28,7 @@
         </div>
 
         <!-- tabela responsiva -->
-        {% if alunos % }
+        {% if alunos %}
         <div class="table-responsive">
 
             <!-- classes para tabela (Bootstrap) , tabela sem borda, conteudo alinhado ao centro, ... , width: auto -->
@@ -58,13 +58,23 @@
                 <!-- linhas -->
                 {% for aluno in alunos %}
                 <tr>
-                    <td>{{aluno.matricula}}</td>
-                    <td>{{aluno.nome}}</td>
-                    <td>{{aluno.datainicial}}</td>
-                    <td>{{aluno.datafinal}}</td>
-                    <td></td>
+                    <td>{{ aluno.matricula }}</td>
+                    <td>{{ aluno.nome }}</td>
+                    <td>{{ aluno.datainicial }}</td>
+                    <td>{{ aluno.datafinal }}</td>
+                    <td>
+                            <a href="#" class="btn btn-mini"><i class="far fa-edit"></i></a>
+                            <button type="button" class="btn" role="button" data-target="#modalExcluirTAluno"
+                                data-toggle="modal" data-descricao="{{aluno.nome}}" 
+                                data-url="{% url 'aluno:excluir' aluno.matricula %}">
+                                
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </td>
                 </tr>
-                {% endfor %}
+               {% endfor %}
+
+
             </table>
 
         </div>
@@ -74,6 +84,51 @@
         </div>
         {% endif %}
         
+        
 
     </main>
+<!-- Modais -->
+    <div class="modal fade" id="modalExcluirTAluno" role="dialog" aria-labelledby="Confirmação" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Confirmação</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <p id="mensagemExclusao"></p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnExcluir">Excluir</button>
+            </div>
+        </div>
+    </div>
+    </div>
 {% endblock %}
+
+{% block javascript_complementar %}
+    <!-- Prepara o modal com os dados da imagem do titulo a ser excluido -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#modalExcluirTAluno').on('show.bs.modal', function(event) {
+                var descricao = $(event.relatedTarget).data('descricao');
+                var urlExcluir = $(event.relatedTarget).data('url');
+                $("#mensagemExclusao").text("Aluno [  " + descricao + "  ]?");
+
+                $.fn.excluirTAluno = function() {
+                    var url = $(event.relatedTarget).data('url');
+                    location.replace(url);
+                }
+            });
+        
+            $("#btnExcluir").on('click', function() {
+                $.fn.excluirTAluno();
+                return false;
+            });            
+        });
+    </script>
+{% endblock javascript_complementar %}

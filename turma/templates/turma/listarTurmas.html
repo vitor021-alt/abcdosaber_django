@@ -27,7 +27,8 @@
             </div>
         </div>
 
-        <!-- tabela responsiva -->
+        <!-- tabela responsiva -->]
+         {% if turmas %}
         <div class="table-responsive">
 
             <!-- classes para tabela (Bootstrap) , tabela sem borda, conteudo alinhado ao centro, ... , width: auto -->
@@ -43,9 +44,25 @@
 
                 <!-- cabecalho -->
                 <thead>
+
+                    <tr>
+                        <!-- colunas cabecalho -->
+                        <th>Número</th>
+                        <th>Horário da Aula</th>
+                        <th>Duração da Aula</th>
+                        <th>Data Inicial</th>
+                        <th>Data Final</th>
+                        <th>Atividade</th>
+                        <th>Instrutor</th>
+                        <th>Titularidade</th>
+                        <th>Aluno Monitor</th>
+                    </tr>
+                </thead>
+
                     <!-- linhas -->
                     {% for turma in turmas %}
                     <tr>
+                        <td>{{turma.numero}}</td>
                         <td>{{turma.horarioAula}} </td>
                         <td>{{turma.duracaoAula}}</td>
                         <td>{{turma.dataInicial}}</td>
@@ -54,12 +71,71 @@
                         <td>{{turma.instrutor}}</td>
                         <td>{{turma.idInstrutor}}</td>
                         <td>{{turma.matriculaMonitor}}</td>
+                        <td>
+                            <a href="#" class="btn btn-mini"><i class="far fa-edit"></i></a>
+                            <button type="button" class="btn" role="button" data-target="#modalExcluirTurma"
+                                data-toggle="modal" data-descricao="{{turma.numero}}" 
+                                data-url="{% url 'turma:excluir' turma.codigoTipoAtividade %}">
+                                
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </td>
                     </tr>
                     {% endfor %}
             </table>
 
         </div>
+        {% else %}
+        <div class="text-danger text-center">
+            <p>Não há turmas cadastradas.</p>
+        </div>
+        {% endif %}
+
 
     </main>
+<!-- Modais -->
+    <div class="modal fade" id="modalExcluirTurma" role="dialog" aria-labelledby="Confirmação" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Confirmação</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <p id="mensagemExclusao"></p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnExcluir">Excluir</button>
+            </div>
+        </div>
+    </div>
+    </div>
 {% endblock %}
-s
+
+{% block javascript_complementar %}
+    <!-- Prepara o modal com os dados da imagem do titulo a ser excluido -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#modalExcluirTurma').on('show.bs.modal', function(event) {
+                var descricao = $(event.relatedTarget).data('descricao');
+                var urlExcluir = $(event.relatedTarget).data('url');
+                $("#mensagemExclusao").text("Turma [  " + descricao + "  ]?");
+
+                $.fn.excluirTurma = function() {
+                    var url = $(event.relatedTarget).data('url');
+                    location.replace(url);
+                }
+            });
+        
+            $("#btnExcluir").on('click', function() {
+                $.fn.excluirTurma();
+                return false;
+            });            
+        });
+    </script>
+{% endblock javascript_complementar %}
+

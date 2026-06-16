@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from turma.models import Turma
 
 # Create your views here.
@@ -15,3 +15,13 @@ def listar(request):
 
 def registro_ausencia(request):
     return render(request, 'turma/registroAusencia.html')
+
+def excluir(request, codigoTurma):
+    try:
+        turma = Turma.objects.get(pk=codigoTurma)
+        turma.delete()
+    except Turma.DoesNotExist:
+        pass
+    
+    return redirect('turma:listar')
+

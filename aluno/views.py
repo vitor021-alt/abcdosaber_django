@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from aluno.models import Aluno 
 
 # Create your views here.
@@ -12,3 +12,12 @@ def listar(request):
 
 def cadastro(request):
     return render(request, 'aluno/cadastroAluno.html')
+
+def excluir(request, codigoAluno):
+    try:
+        aluno = Aluno.objects.get(matricula=codigoAluno)
+        aluno.delete()
+    except Aluno.DoesNotExist:
+        pass
+    
+    return redirect('aluno:listar')
