@@ -29,8 +29,10 @@
         </div>
 
         <!-- formulario HTML -->
-        <form name="frmCadastrarTurma" action="#" method="post" class="my-label-color-purple">
+        <form name="frmCadastrarTurma" action="{% url 'turma:cadastrar' %}" method="post" class="my-label-color-purple">
 
+            {% csrf_token %}
+            
             <div class="form-group">
                 <label for="idHorarioAula" class="col-form-label">Horário da Aula</label>
                 <input class="form-control" type="time" id="idHorarioAula" name="horarioAula" required>

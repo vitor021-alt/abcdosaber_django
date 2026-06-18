@@ -28,7 +28,9 @@
         </div>
 
         <!-- formulario HTML -->
-        <form name="frmCadastrarInstrutor" action="#" method="post" class="my-label-color-purple">
+        <form action="{% url 'instrutor:cadastrar' %}" method="POST" name="frmCadastrarInstrutor" class="my-label-color-purple">
+
+            {% csrf_token %}
 
             <div class="form-group">
                 <label for="idNomeInstrutor" class="col-form-label">Nome do Instrutor</label>
