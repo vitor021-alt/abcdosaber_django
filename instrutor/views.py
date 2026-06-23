@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from instrutor.forms import InstrutorForm
 from instrutor.models import Instrutor
+from titulo.models import Titulo
 
 # Create your views here.
 def listar(request):
@@ -13,7 +14,11 @@ def listar(request):
     return render(request, 'instrutor/listarInstrutores.html', context=contexto)
 
 def carregar_cadastro(request):
-    return render(request, 'instrutor/cadastroInstrutor.html')
+    lista_titulos = Titulo.objects.all()
+    contexto = {
+        "titulos": lista_titulos
+    }
+    return render(request, 'instrutor/cadastroInstrutor.html', context=contexto)
 
 def cadastrar(request):
     form = InstrutorForm(request.POST)
@@ -24,14 +29,20 @@ def cadastrar(request):
             rg = dados_instrutor['rg'],
             dataNascimento = dados_instrutor['dataNascimento'],
             ddd = dados_instrutor['ddd'],
-            telefone = dados_instrutor['telefone']
+            telefone = dados_instrutor['telefone'],
+            codigo_titulo = dados_instrutor['codigo_titulo']
         )
         
         instrutor.save()
-    else:
-        print(form.errors)
+        return redirect('instrutor:listar')
 
-    return render(request, 'instrutor/cadastroInstrutor.html')
+    else:
+        erros = form.errors
+        contexto = {
+            'erros': erros
+        }
+        
+        return render(request, 'instrutor/pagina_erro.html', context=contexto)
 
 def cadastro(request):
     return render(request, 'instrutor/cadastroInstrutor.html')

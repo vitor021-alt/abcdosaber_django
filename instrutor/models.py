@@ -57,4 +57,4 @@ class Instrutor(models.Model):
 
 
     def __str__(self):
-        return f'{self.id} {self.rg} {self.nome} {self.dataNascimento} {self.telefone} {self.ddd} {self.codigo_titulo}'
+        return f'{self.id} {self.nome}'

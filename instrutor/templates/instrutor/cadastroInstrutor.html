@@ -60,16 +60,17 @@
                 </div>
             </div>
 
+               
             <div class="form-group">
                 <label for="idTitulo">Título do Professor</label>
                 <select class="form-control" id="idTitulo" name="codigoTitulo">
                     <option value="0">Selecione...</option>
-                    <option value="1">Professor Doutor</option>
-                    <option value="2">Professor Sabe-Tudo</option>
-                    <option value="3">Professor Estagiário</option>
-
+                    {% for titulo in titulos %}
+                    <option value="{{ titulo.codigo }}">{{titulo.descricao}}</option>
+                    {% endfor %}
                 </select>
             </div>
+            
 
             <div class="form-group my-4 text-center">
                 <input type="reset" value="Limpar" class="btn btn-primary btn-md">
