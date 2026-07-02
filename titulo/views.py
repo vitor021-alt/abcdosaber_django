@@ -1,7 +1,9 @@
 
+from typing import Any
+
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from titulo.forms import TituloForm
+from titulo.forms import TituloUpdateForm , TituloForm
 from titulo.models import Titulo
 
 
@@ -41,4 +43,32 @@ def excluir(request, codigoTitulo):
     except Titulo.DoesNotExist:
         pass
     
+    return redirect('titulo:listar')
+
+def carregar_titulo(request, codigo):
+    # recuperar titulo a ser atualizado
+    titulo = Titulo.objects.get(pk=codigo)
+    contexto = {
+        'titulo': titulo
+    }
+    return render(request, 'titulo/atualizarTitulo.html', context=contexto) 
+
+def atualizar(request):
+    # receber form
+    form = TituloUpdateForm(request.POST)
+    # validar form
+    if form.is_valid():
+        dados_titulo = form.cleaned_data
+        # se ok entao atualizacao
+
+        dados_titulo: dict[str, Any] = form.cleaned_data
+  
+        codigo = dados_titulo['codigo']
+        titulo = Titulo.objects.get(pk=codigo)
+
+        titulo.descricao = dados_titulo['descricao']
+
+        titulo.save()
+
+# redirect para a pagina de listagem
     return redirect('titulo:listar')

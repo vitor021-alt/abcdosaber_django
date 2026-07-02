@@ -40,3 +40,4 @@ def excluir(request, codigoTipodeatividade):
         pass
     
     return redirect('tipodeatividade:listar')
+

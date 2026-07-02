@@ -8,4 +8,6 @@ urlpatterns = [
     path('cadastro/', views.carregar_cadastro, name='cadastro'),
     path('cadastrar/', views.cadastrar, name='cadastrar'),
     path('excluir/<int:codigoTitulo>', views.excluir, name='excluir'),
+    path('atualizar/', views.atualizar, name='atualizar'),
+    path('carregar_titulo/<int:codigo>', views.carregar_titulo, name='carregar_titulo'),    
 ]
