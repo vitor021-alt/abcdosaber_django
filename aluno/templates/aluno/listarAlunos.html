@@ -63,7 +63,7 @@
                     <td>{{ aluno.datainicial }}</td>
                     <td>{{ aluno.datafinal }}</td>
                     <td>
-                            <a href="#" class="btn btn-mini"><i class="far fa-edit"></i></a>
+                            <a href="{% url 'aluno:carregar_aluno' aluno.codigo %}" class="btn btn-mini"><i class="far fa-edit"></i></a>
                             <button type="button" class="btn" role="button" data-target="#modalExcluirTAluno"
                                 data-toggle="modal" data-descricao="{{aluno.nome}}" 
                                 data-url="{% url 'aluno:excluir' aluno.matricula %}">

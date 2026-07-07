@@ -58,7 +58,7 @@
                      <td> {{ tipodeatividades.codigo }} </td>
                      <td> {{ tipodeatividades.descricao }} </td>
                      <td>
-                            <a href="#" class="btn btn-mini"><i class="far fa-edit"></i></a>
+                            <a href="{% url 'tipodeatividade:carregar_tipodeatividade' tipodeatividades.codigo %}" class="btn btn-mini"><i class="far fa-edit"></i></a>
                             <button type="button" class="btn" role="button" data-target="#modalExcluirTipodeatividade"
                                 data-toggle="modal" data-descricao="{{tipodeatividades.descricao}}" 
                                 data-url="{% url 'tipodeatividade:excluir' tipodeatividades.codigo %}">

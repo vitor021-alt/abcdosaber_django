@@ -19,3 +19,17 @@ tzdata==2026.2
 
 # 17/06
 # terminar de criar o forms.py da turma e aluno e todo o resante
+
+# pra cadastrar o botao de editar vai mecher na viwes, urls, forms e templates atualizarhtml e listarhtml
+
+auto close tag
+auto rename tag
+css peek
+docker
+html css support
+live server
+open browser preview chrome
+prettier code formatter
+pylance
+sqlite
+sqlite viewer

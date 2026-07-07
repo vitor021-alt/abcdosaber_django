@@ -1,7 +1,10 @@
+from typing import Any
+
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from tipodeatividade.forms import TipodeatividadeForm
+from tipodeatividade.forms import TipodeatividadeForm, TipodeatividadeUpdateForm
 from tipodeatividade.models import Tipodeatividade
+
 
 
 
@@ -41,3 +44,30 @@ def excluir(request, codigoTipodeatividade):
     
     return redirect('tipodeatividade:listar')
 
+def carregar_tipodeatividade(request, codigo):
+    # recuperar tipo de atividade a ser atualizado
+    tipo_atividade = Tipodeatividade.objects.get(pk=codigo)
+    contexto = {
+        'tipo_atividade': tipo_atividade
+    }
+    return render(request, 'tipodeatividade/atualizarTiposAtividade.html', context=contexto) 
+
+def atualizar(request):
+    # receber form
+    form = TipodeatividadeUpdateForm(request.POST)
+    # validar form
+    if form.is_valid():
+        dados_tipodeatividade = form.cleaned_data
+        # se ok entao atualizacao
+
+        dados_tipodeatividade: dict[str, Any] = form.cleaned_data
+  
+        codigo = dados_tipodeatividade['codigo']
+        tipo_atividade = Tipodeatividade.objects.get(pk=codigo)
+
+        tipo_atividade.descricao = dados_tipodeatividade['descricao']
+
+        tipo_atividade.save()
+
+# redirect para a pagina de listagem
+    return redirect('tipodeatividade:listar')

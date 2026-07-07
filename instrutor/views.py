@@ -1,7 +1,8 @@
+from typing import Any
 
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from instrutor.forms import InstrutorForm
+from instrutor.forms import InstrutorForm, InstrutorUpdateForm
 from instrutor.models import Instrutor
 from titulo.models import Titulo
 
@@ -53,5 +54,36 @@ def excluir(request, codigoInstrutor):
         instrutor.delete()
     except Instrutor.DoesNotExist:
         pass
-    
-    return redirect('instrutor:listar')
+
+def carregar_instrutor(request, codigo):
+    # recuperar instrutor a ser atualizado
+    instrutor = Instrutor.objects.get(pk=codigo)
+    contexto = {
+        'instrutor': instrutor
+    }
+    return render(request, 'instrutor/atualizarInstrutor.html', context=contexto) 
+
+def atualizar(request):
+    # receber form
+    form = InstrutorUpdateForm(request.POST)
+    # validar form
+    if form.is_valid():
+        dados_instrutor = form.cleaned_data
+        # se ok entao atualizacao
+
+        dados_instrutor: dict[str, Any] = form.cleaned_data
+  
+        codigo = dados_instrutor['codigo']
+        instrutor = Instrutor.objects.get(pk=codigo)
+
+        instrutor.nome = dados_instrutor['nome']
+        instrutor.rg = dados_instrutor['rg']
+        instrutor.dataNascimento = dados_instrutor['dataNascimento']
+        instrutor.ddd = dados_instrutor['ddd']
+        instrutor.telefone = dados_instrutor['telefone']
+        instrutor.codigo_titulo = dados_instrutor['codigo_titulo']
+
+        instrutor.save()
+
+# redirect para a pagina de listagem
+    return redirect('instrutor:listar')   

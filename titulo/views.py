@@ -61,7 +61,7 @@ def atualizar(request):
         dados_titulo = form.cleaned_data
         # se ok entao atualizacao
 
-        dados_titulo: dict[str, Any] = form.cleaned_data
+        dados_titulo = form.cleaned_data
   
         codigo = dados_titulo['codigo']
         titulo = Titulo.objects.get(pk=codigo)
